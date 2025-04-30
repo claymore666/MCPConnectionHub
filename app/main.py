@@ -38,7 +38,7 @@ async def health_check():
     """
     Health check endpoint to verify service is running.
     """
-    return {"status": "healthy"}
+    return {"status": "healthy", "version": "0.1.0"}
 
 # Basic root endpoint
 @app.get("/", tags=["root"])

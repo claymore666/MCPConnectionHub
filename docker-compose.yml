@@ -8,18 +8,18 @@ services:
     image: mcp-connection-hub:latest
     container_name: mcp-connection-hub
     ports:
-      - "8000:8000"
+      - "8888:8000"
     volumes:
-      - mcp-data:/data
       - /opt/MCPConnectionHub-data:/data
     environment:
       - ENVIRONMENT=development
       - LOG_LEVEL=INFO
       - API_KEY=${API_KEY:-default_dev_key_change_me}
       - DATABASE_URL=sqlite:////data/db/mcp_hub.db
+      - BRAVE_SEARCH_API_KEY=${BRAVE_SEARCH_API_KEY:-your_brave_api_key_here}
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      test: ["CMD", "python", "-c", "import urllib.request; exit(0) if urllib.request.urlopen('http://localhost:8000/health').getcode() == 200 else exit(1)"]
       interval: 30s
       timeout: 10s
       retries: 3
