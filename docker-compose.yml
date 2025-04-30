@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  mcp-hub:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: mcp-connection-hub:latest
+    container_name: mcp-connection-hub
+    ports:
+      - "8000:8000"
+    volumes:
+      - mcp-data:/data
+      - /opt/MCPConnectionHub-data:/data
+    environment:
+      - ENVIRONMENT=development
+      - LOG_LEVEL=INFO
+      - API_KEY=${API_KEY:-default_dev_key_change_me}
+      - DATABASE_URL=sqlite:////data/db/mcp_hub.db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+volumes:
+  mcp-data:
+    driver: local
