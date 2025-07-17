@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/claymore666-mcpconnectionhub-badge.png)](https://mseep.ai/app/claymore666-mcpconnectionhub)
+
 # MCP Connection Hub
 
 A unified Model Context Protocol Gateway that provides a central connection point for AI tools and services.
